@@ -3,8 +3,37 @@
 <h3>Prediction</h3>
 <form method="post">
     {{form.hidden_tag()}}
-    {{ form.field_1.label }} {{form.field_1}}
+    {{ form.age.label }} {{form.age}}
     <br/>
+    {{ form.daily_average_of_betal_quids.label }} {{form.daily_average_of_betal_quids}}
+    <br/>
+    {{ form.has_arecanut_as_an_ingrediant.label }} {{form.has_arecanut_as_an_ingrediant}}
+    <br/>
+    {{ form.average_years_of_smoking.label }} {{form.average_years_of_smoking}}
+    <br/>
+    {{ form.sex.label }} {{form.sex}}
+    <br/>
+    {{ form.has_burning_sensation.label }} {{form.has_burning_sensation}}
+    <br/>
+    {{ form.has_difficulty_in_mouth_opening.label }} {{form.has_difficulty_in_mouth_opening}}
+    <br/>
+    {{ form.has_ulceration.label }} {{form.has_ulceration}}
+    <br/>
+    {{ form.has_medical_history_of_hypertension.label }} {{form.has_medical_history_of_hypertension}}
+    <br/>
+    {{ form.is_toungue_movement_restricted.label }} {{form.is_toungue_movement_restricted}}
+    <br/>
+    {{ form.has_prescribed_steroid_intra_lesional_injection.label }} {{form.has_prescribed_steroid_intra_lesional_injection}}
+    <br/>
+    {{ form.has_prescribed_pentoxyphylline.label }} {{form.has_prescribed_pentoxyphylline}}
+    <br/>
+    {{ form.is_prescribed_antifungals.label }} {{form.is_prescribed_antifungals}}
+    <br/>    
     {{form.submit()}}
 </form>
+    {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger" >
+            {{ ', '.join(errors) }}
+        </div>
+    {% endfor %}
 {% endblock %}

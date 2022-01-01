@@ -4,23 +4,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         
         <title>
             OSF App   
         </title>
     </head>
     <body>
-        <div class="container">
-            <h3 class="row">OSF APP</h3>
-            <div class="row">
-                <form class="col-md-2" method="get" action="/data-import">
-                    <button class="btn btn-primary">Import Data</button>
-                </form>
-                <form class="col-md-2" method="get" action="/prediction">
-                    <button class="btn btn-primary">Predict</button>
-                </form>
-                
-               
+        <div class="container">    
+            
+            <div class="jumbotron">
+                <h1>OSF Malignant Transformation Risk Assesment</h1>
+            </div>
+            <div id="action-buttons">
+                <div class="row">
+                    <form class="col-md-2" method="get" action="/data-import">
+                        <button class="btn btn-primary">Import Data</button>
+                    </form>
+                    <form class="col-md-2" method="get" action="/prediction">
+                        <button class="btn btn-primary">Predict</button>
+                    </form>
+                </div>
             </div>
             {% block content %}
             {% endblock %}
