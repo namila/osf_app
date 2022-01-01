@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, redirect, url_for
 from data_import_form import DataImportForm
 from prediction_form import PredictionForm
+from predictor import Predictor
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'OSF_APP_SECRET'
@@ -28,6 +29,7 @@ def pediction_page():
 
 @app.route('/prediction/results')
 def prediction_results():
+    predictor = Predictor()
     results = session['field_1']
     return render_template('prediction_results.html', results = results)
 
