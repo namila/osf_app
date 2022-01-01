@@ -5,9 +5,6 @@ from prediction_form import PredictionForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'OSF_APP_SECRET'
 
-
-
-
 @app.route('/', methods = ['GET'])
 def index():
     return render_template('index.html', form = {})
