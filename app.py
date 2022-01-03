@@ -23,14 +23,21 @@ def pediction_page():
     prediction_form  = PredictionForm()
 
     if prediction_form.validate_on_submit():
-        session['field_1'] = prediction_form.field_1.data
+        session['age'] = prediction_form.age.data
+        session['sex'] = prediction_form.sex.data
+        session['has_burning_sensation'] = prediction_form.has_burning_sensation.data
         return redirect(url_for('prediction_results'))
     return render_template('prediction.html',  form = prediction_form)
 
 @app.route('/prediction/results')
 def prediction_results():
     predictor = Predictor()
-    results = session['field_1']
+    results = {
+        'age': session['age'],
+        'sex': session['sex'],
+        'has_burning_sensation': session['has_burning_sensation']
+        
+    }
     return render_template('prediction_results.html', results = results)
 
 

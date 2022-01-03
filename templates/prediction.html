@@ -3,32 +3,58 @@
 <h3>Prediction</h3>
 <form method="post">
     {{form.hidden_tag()}}
+
     {{ form.age.label }} {{form.age}}
     <br/>
-    {{ form.daily_average_of_betal_quids.label }} {{form.daily_average_of_betal_quids}}
-    <br/>
-    {{ form.has_arecanut_as_an_ingrediant.label }} {{form.has_arecanut_as_an_ingrediant}}
-    <br/>
-    {{ form.average_years_of_smoking.label }} {{form.average_years_of_smoking}}
-    <br/>
+
     {{ form.sex.label }} {{form.sex}}
     <br/>
+
     {{ form.has_burning_sensation.label }} {{form.has_burning_sensation}}
     <br/>
+
+    {{ form.daily_average_of_betal_quids.label }} {{form.daily_average_of_betal_quids}}
+    <br/>
+
+    {{ form.average_years_of_betel_consumption.label }} {{form.average_years_of_betel_consumption}}
+    <br/>
+
+    {{ form.daily_average_of_smoking_frequency.label }} {{form.daily_average_of_smoking_frequency}}
+    <br/>
+
+    {{ form.average_years_of_smoking.label }} {{form.average_years_of_smoking}}
+    <br/>
+
     {{ form.has_difficulty_in_mouth_opening.label }} {{form.has_difficulty_in_mouth_opening}}
     <br/>
-    {{ form.has_ulceration.label }} {{form.has_ulceration}}
-    <br/>
-    {{ form.has_medical_history_of_hypertension.label }} {{form.has_medical_history_of_hypertension}}
-    <br/>
+
     {{ form.is_toungue_movement_restricted.label }} {{form.is_toungue_movement_restricted}}
     <br/>
-    {{ form.has_prescribed_steroid_intra_lesional_injection.label }} {{form.has_prescribed_steroid_intra_lesional_injection}}
+
+    {{ form.medical_history.label}} {{form.medical_history}}
     <br/>
-    {{ form.has_prescribed_pentoxyphylline.label }} {{form.has_prescribed_pentoxyphylline}}
+
+    {{ form.fibrous_bands.label}} {{form.fibrous_bands}}
     <br/>
-    {{ form.is_prescribed_antifungals.label }} {{form.is_prescribed_antifungals}}
-    <br/>    
+
+    {{ form.has_leukoplakia.label}} {{form.has_leukoplakia}}
+    <br/>
+
+    {{ form.has_erythroplakia.label}} {{form.has_erythroplakia}}
+    <br/>
+
+    {{ form.intial_dignosis.label}} {{form.intial_dignosis}}
+    <br/>
+
+    {{ form.has_candida.label}} {{form.has_candida}}
+    <br/>
+
+    {{ form.intial_prescription.label}} {{form.intial_prescription}}
+    <br/>
+
+    {{ form.complaints_after_initial_prescription.label}} {{form.complaints_after_initial_prescription}}
+    <br/>
+    
     {{form.submit()}}
 </form>
     {% for field, errors in form.errors.items() %}
