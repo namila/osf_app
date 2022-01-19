@@ -23,22 +23,33 @@ def pediction_page():
     prediction_form  = PredictionForm()
 
     if prediction_form.validate_on_submit():
-        session['age'] = prediction_form.age.data
-        session['sex'] = prediction_form.sex.data
-        session['has_burning_sensation'] = prediction_form.has_burning_sensation.data
+        session['prediction_input'] = {
+            'age': prediction_form.age.data,
+            'sex': prediction_form.sex.data,
+            'has_burning_sensation': prediction_form.has_burning_sensation.data,
+            'daily_average_of_betal_quids': prediction_form.daily_average_of_betal_quids.data,
+            'average_years_of_betel_consumption': prediction_form.average_years_of_betel_consumption.data,
+            'daily_average_of_smoking_frequency': prediction_form.daily_average_of_smoking_frequency.data,
+            'average_years_of_smoking': prediction_form.average_years_of_smoking.data,
+            'has_difficulty_in_mouth_opening': prediction_form.has_difficulty_in_mouth_opening.data,
+            'is_toungue_movement_restricted': prediction_form.is_toungue_movement_restricted.data,
+            'medical_history': prediction_form.medical_history.data,
+            'fibrous_bands': prediction_form.fibrous_bands.data,
+            'has_leukoplakia': prediction_form.has_leukoplakia.data,
+            'has_erythroplakia': prediction_form.has_erythroplakia.data,
+            'intial_dignosis': prediction_form.intial_dignosis.data,
+            'has_candida': prediction_form.has_candida.data,
+            'intial_prescription': prediction_form.intial_prescription.data,
+            'complaints_after_initial_prescription': prediction_form.complaints_after_initial_prescription.data,
+        }
         return redirect(url_for('prediction_results'))
     return render_template('prediction.html',  form = prediction_form)
 
 @app.route('/prediction/results')
 def prediction_results():
-    predictor = Predictor()
-    results = {
-        'age': session['age'],
-        'sex': session['sex'],
-        'has_burning_sensation': session['has_burning_sensation']
-        
-    }
-    return render_template('prediction_results.html', results = results)
+    predictor = Predictor(session['prediction_input'])
+    result = predictor.predict_risk()
+    return render_template('prediction_results.html', input_data = predictor.get_formatted_input_data(), result= 0)
 
 
 if __name__ == '__main__':

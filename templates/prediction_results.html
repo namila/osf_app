@@ -1,20 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3> Results </h3>
+<div id="result-table">
+    {% if result == 1: %}
+        <div class="alert alert-danger" role="alert">
+            Patient Under High Risk of Malignant Transformation
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Patient Under Low Risk of Malignant Transformation
+        </div>
+    {% endif %}
+    <table class="table table-striped table-bordered ">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for input in input_data: %}
+            <tr>
+                <td>
+                    {{input.replace('_', ' ').capitalize()}}
+                </td>  
+                <td>
+                    {{input_data[input]}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
 
-<p>
-    {{results.age}}
-</p>
-
-<p>
-    {{results.sex}}
-</p>
-
-<p>
-    {{results.has_burning_sensation}}
-</p>
-
-
-{{results}}
 {% endblock %}
