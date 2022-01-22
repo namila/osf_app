@@ -44,8 +44,8 @@ def pediction_page():
             'has_leukoplakia': prediction_form.has_leukoplakia.data,
             'has_erythroplakia': prediction_form.has_erythroplakia.data,
             'has_candida': prediction_form.has_candida.data,
-            'intial_dignosis': prediction_form.intial_dignosis.data,
-            'intial_prescription': prediction_form.intial_prescription.data,
+            'initial_dignosis': prediction_form.initial_dignosis.data,
+            'initial_prescription': prediction_form.initial_prescription.data,
             'complaints_after_initial_prescription': prediction_form.complaints_after_initial_prescription.data,
         }
         return redirect(url_for('prediction_results'))
@@ -55,7 +55,7 @@ def pediction_page():
 def prediction_results():
     predictor = Predictor(session['prediction_input'])
     result = predictor.predict_risk()
-    return render_template('prediction_results.html', input_data = predictor.get_formatted_input_data(), result= 0)
+    return render_template('prediction_results.html', input_data = predictor.get_formatted_input_data(), result= result)
 
 
 if __name__ == '__main__':

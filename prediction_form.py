@@ -51,11 +51,11 @@ class PredictionForm(FlaskForm):
 
     has_candida = SelectField(label = 'Has Candida', choices = [('1','Yes'),('0','No')], coerce = int, render_kw = {'class': 'form-control'})
    
-    intial_dignosis = SelectMultipleField(label = "Initial Diagnosis", choices = [('none', 'None'),('osf_with_mild_to_moderate_dysplsia', 'OSF with mild to moderate dysplsia'),
+    initial_dignosis = SelectMultipleField(label = "Initial Diagnosis", choices = [('none', 'None'),('osf_with_mild_to_moderate_dysplsia', 'OSF with mild to moderate dysplsia'),
         ('osf_with_severe_dysplasia', 'OSF with severe dysplasia'), ('carcinoma_in_situ_in_bac_of_OSF', 'Carcinoma in situ in bac of OSF'), 
         ('osf_with_cancer', 'OSF with cancer')], render_kw = {'class': 'form-control'})
       
-    intial_prescription = SelectMultipleField(label = 'Initial Prescription', choices = [('mo_excercises_and_habit_intervention', 'Mouth excercises and Habit intervention'),
+    initial_prescription = SelectMultipleField(label = 'Initial Prescription', choices = [('mo_excercises_and_habit_intervention', 'Mouth excercises and Habit intervention'),
         ('steroid_intra_lesional_injection', 'Steroid Intra Lensional Injection'), ('topical_steroids', 'Topical Steroids'), 
         ('vitamins', 'Vitamins'), ('pentoxyphylline', 'Pentoxyphylline'), ('surgery', 'Surgery'), ('antifungals', 'Antifungals')], render_kw = {'class': 'form-control'})
    

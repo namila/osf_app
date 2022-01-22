@@ -1,4 +1,5 @@
 from tensorflow.keras.models import load_model
+import numpy as np
 import joblib
 
 class Predictor:
@@ -25,13 +26,13 @@ class Predictor:
     has_leukoplakia = False
     has_erythroplakia = False
     has_candida = False
-    intial_dignosis = None
-    intial_prescription = None
+    initial_dignosis = None
+    initial_prescription = None
     complaints_after_initial_prescription = None
 
     def __init__(self, form_input) -> None:
         self.model = load_model('pretrained_objects/osf_model.h5')
-        selfscaler = joblib.load('pretrained_objects/osf_scaler.pkl')
+        self.scaler = joblib.load('pretrained_objects/osf_scaler.pkl')
 
         self.sex = form_input['sex'] 
         self.age = form_input['age']
@@ -53,12 +54,47 @@ class Predictor:
         self.has_leukoplakia = form_input['has_leukoplakia']
         self.has_erythroplakia = form_input['has_erythroplakia']
         self.has_candida = form_input['has_candida']
-        self.intial_dignosis = form_input['intial_dignosis']
-        self.intial_prescription = form_input['intial_prescription']
+        self.initial_dignosis = form_input['initial_dignosis']
+        self.initial_prescription = form_input['initial_prescription']
         self.complaints_after_initial_prescription = form_input['complaints_after_initial_prescription']
 
     def predict_risk(self):
-        return 1
+        predicion_input = [[
+            self.age,
+            self.daily_average_of_betal_quids,
+            self.daily_average_of_smoking_frequency,
+            self.average_years_of_betel_consumption,
+            self.has_difficulty_in_mouth_opening,
+            self.is_patch_present,
+            1 if 'lime' in self.betel_ingrediants else 0,
+            1 if 'beedi' in self.smoking_type else 0,
+            1 if 'arrack' in self.alchohol_type else 0,
+            self.is_toungue_movement_restricted,
+            self.has_depapilation_on_lips,
+            1 if 'osf_with_mild_to_moderate_dysplsia' in self.initial_dignosis else 0,
+            1 if 'osf_with_severe_dysplasia' in self.initial_dignosis else 0,
+            1 if 'steroid_intra_lesional_injection' in self.initial_prescription else 0,
+            1 if 'topical_steroids' in self.initial_prescription else 0,
+            1 if 'diabetes' in self.complaints_after_initial_prescription else 0,
+            1 if 'heart_disease' in self.complaints_after_initial_prescription else 0,
+            self.has_leukoplakia,
+            self.has_erythroplakia,
+            1 if self.has_leukoplakia == 0 and self.has_erythroplakia == 0 else 0,
+            self.hemoglobin_level
+        ]]
+
+        test = [[51.56511172,  7.15289256,  5.01244444,  0.        ,  0.        ,
+        0.64883756,  1.        ,  0.        ,  0.        ,  1.        ,
+        0.35116244,  0.        ,  0.        ,  0.        ,  0.        ,
+        0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       13.83614035]]
+
+        transformed_input = self.scaler.transform(predicion_input)
+        results = self.model.predict_classes(transformed_input)
+        return results[0][0]
+    
+    def get_binary_value_from_boolean(self, boolean_value):
+        return boolean_value
 
     def get_formatted_input_data(self):
         formatted_input  =  {
@@ -82,8 +118,8 @@ class Predictor:
             'has_leukoplakia': 'Yes' if self.has_leukoplakia == 1 else 'No',
             'has_erythroplakia': 'Yes' if self.has_erythroplakia == 1 else 'No',
             'has_candida': 'Yes' if self.has_candida == 1 else 'No',
-            'intial_dignosis': self.process_string_list(self.intial_dignosis),
-            'intial_prescription': self.process_string_list(self.intial_prescription),
+            'initial_dignosis': self.process_string_list(self.initial_dignosis),
+            'intial_prescription': self.process_string_list(self.initial_prescription),
             'complaints_after_initial_prescription': self.process_string_list(self.complaints_after_initial_prescription),
         }
         return formatted_input
